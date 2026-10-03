@@ -14,7 +14,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
-      { title: "Livraisons en cours — Administration MarchéGo" },
+      { title: "Livraisons en cours — Administration Mon Djassaman" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -28,9 +28,14 @@ function Dashboard() {
 
   const all = orders.data ?? [];
   const ongoing = all.filter((order) => order.status === "en_livraison");
-  const toProcess = all.filter((order) => order.status === "nouvelle" || order.status === "confirmee");
+  const toProcess = all.filter(
+    (order) => order.status === "nouvelle" || order.status === "confirmee",
+  );
   const delivered = all.filter((order) => order.status === "livree");
-  const revenue = delivered.reduce((sum, order) => sum + order.items_total + order.delivery_fee, 0);
+  const revenue = delivered.reduce(
+    (sum, order) => sum + order.items_total - order.discount_total + order.delivery_fee,
+    0,
+  );
   const availableCouriers = (couriers.data ?? []).filter((c) => c.availability === "disponible");
 
   const courierName = (id: string | null) =>
@@ -61,7 +66,10 @@ function Dashboard() {
       <section className="rounded-lg border border-border bg-background">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="font-display text-lg font-bold">Livraisons en cours</h2>
-          <Link to="/admin/commandes" className="text-sm font-semibold text-primary hover:underline">
+          <Link
+            to="/admin/commandes"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
             Voir toutes les commandes
           </Link>
         </div>
@@ -86,7 +94,9 @@ function Dashboard() {
                   <p className="text-muted-foreground">{vendorName(order.vendor_id)}</p>
                 </div>
                 <div className="text-right text-sm">
-                  <p className="font-bold">{formatPrice(order.items_total + order.delivery_fee)}</p>
+                  <p className="font-bold">
+                    {formatPrice(order.items_total - order.discount_total + order.delivery_fee)}
+                  </p>
                   <p className="text-muted-foreground">{relativeTime(order.created_at)}</p>
                 </div>
               </li>
@@ -117,7 +127,7 @@ function Dashboard() {
                   </p>
                 </div>
                 <p className="text-sm font-bold">
-                  {formatPrice(order.items_total + order.delivery_fee)}
+                  {formatPrice(order.items_total - order.discount_total + order.delivery_fee)}
                 </p>
               </li>
             ))}

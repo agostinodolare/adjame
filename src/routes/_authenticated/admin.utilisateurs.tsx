@@ -5,26 +5,29 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { assignManagedRole, listManagedUsers, removeManagedRole } from "@/lib/users.functions";
 import type { AppRole } from "@/lib/roles";
 
 export const Route = createFileRoute("/_authenticated/admin/utilisateurs")({
   head: () => ({
     meta: [
-      { title: "Utilisateurs — Administration MarchéGo" },
+      { title: "Utilisateurs — Administration Mon Djassaman" },
       { name: "robots", content: "noindex" },
     ],
   }),
   component: UsersPage,
 });
 
-const inputClass = "h-10 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary";
+const inputClass =
+  "h-10 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary";
 
-const roles: AppRole[] = ["admin", "staff", "vendeur", "livreur"];
+const roles: AppRole[] = ["admin", "staff", "vendeur", "livreur", "client"];
 const roleLabels: Record<AppRole, string> = {
   admin: "Administrateur",
   staff: "Équipe",
   vendeur: "Vendeur",
   livreur: "Livreur",
+  client: "Client",
 };
 
 function UsersPage() {
@@ -36,26 +39,19 @@ function UsersPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   // Récupérer tous les utilisateurs avec leurs rôles
-  const { data: users, isLoading } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    isError,
+    error: usersError,
+  } = useQuery({
     queryKey: ["users_with_roles"],
     queryFn: async () => {
-      // Récupérer tous les utilisateurs
-      const { data: usersData, error: usersError } = await supabase.auth.admin.listUsers();
-      if (usersError) throw usersError;
-
-      // Récupérer tous les rôles
-      const { data: rolesData, error: rolesError } = await supabase.from("user_roles").select("*");
-      if (rolesError) throw rolesError;
-
-      // Associer les rôles à chaque utilisateur
-      return usersData.users.map((user) => {
-        const userRoles = rolesData.filter((role) => role.user_id === user.id);
-        return {
-          id: user.id,
-          email: user.email ?? "",
-          roles: userRoles.map((r) => r.role as AppRole),
-        };
-      });
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      const accessToken = data.session?.access_token;
+      if (!accessToken) throw new Error("Session administrateur introuvable.");
+      return listManagedUsers({ data: { accessToken } });
     },
   });
 
@@ -65,20 +61,20 @@ function UsersPage() {
 
   // Filtrer les utilisateurs selon la recherche
   const filteredUsers = users?.filter((user) =>
-    user.email.toLowerCase().includes(searchEmail.toLowerCase())
+    user.email.toLowerCase().includes(searchEmail.toLowerCase()),
   );
 
   // Attribuer un rôle à un utilisateur
   const assignRole = useMutation({
     mutationFn: async () => {
       if (!selectedUser) throw new Error("Aucun utilisateur sélectionné");
-
-      const { error: insertError } = await supabase.from("user_roles").upsert({
-        user_id: selectedUser.id,
-        role: selectedRole,
-      }, { onConflict: "user_id,role" });
-
-      if (insertError) throw insertError;
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      const accessToken = data.session?.access_token;
+      if (!accessToken) throw new Error("Session administrateur introuvable.");
+      await assignManagedRole({
+        data: { accessToken, userId: selectedUser.id, role: selectedRole },
+      });
     },
     onSuccess: () => {
       setSuccess(`Rôle "${roleLabels[selectedRole]}" attribué à ${selectedUser?.email}`);
@@ -93,12 +89,13 @@ function UsersPage() {
   // Supprimer un rôle d'un utilisateur
   const removeRole = useMutation({
     mutationFn: async ({ userId, role }: { userId: string; role: AppRole }) => {
-      const { error: deleteError } = await supabase
-        .from("user_roles")
-        .delete()
-        .eq("user_id", userId)
-        .eq("role", role);
-      if (deleteError) throw deleteError;
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      const accessToken = data.session?.access_token;
+      if (!accessToken) throw new Error("Session administrateur introuvable.");
+      await removeManagedRole({
+        data: { accessToken, userId, role },
+      });
     },
     onSuccess: () => {
       setSuccess("Rôle supprimé");
@@ -120,7 +117,7 @@ function UsersPage() {
       {/* Formulaire d'attribution de rôle */}
       <div className="rounded-lg border border-border bg-background p-5 space-y-4">
         <h2 className="font-semibold">Attribuer un rôle</h2>
-        
+
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-semibold">Utilisateur</label>
@@ -140,7 +137,7 @@ function UsersPage() {
               ))}
             </select>
           </div>
-          
+
           <div>
             <label className="mb-1.5 block text-sm font-semibold">Rôle</label>
             <select
@@ -157,7 +154,7 @@ function UsersPage() {
             </select>
           </div>
         </div>
-        
+
         <Button
           type="button"
           onClick={() => assignRole.mutate()}
@@ -165,7 +162,7 @@ function UsersPage() {
         >
           <Plus /> Attribuer le rôle
         </Button>
-        
+
         {error && <p className="text-sm text-destructive">{error}</p>}
         {success && <p className="text-sm text-mint font-medium">{success}</p>}
       </div>
@@ -197,6 +194,12 @@ function UsersPage() {
               <tr>
                 <td colSpan={3} className="px-4 py-6 text-center text-muted-foreground">
                   Chargement...
+                </td>
+              </tr>
+            ) : isError ? (
+              <tr>
+                <td colSpan={3} className="px-4 py-6 text-center text-destructive">
+                  Impossible de charger les utilisateurs : {usersError.message}
                 </td>
               </tr>
             ) : filteredUsers && filteredUsers.length > 0 ? (
@@ -234,7 +237,7 @@ function UsersPage() {
                       onClick={() => {
                         setSelectedUser(user);
                         // Si l'utilisateur a déjà des rôles, sélectionner le premier
-                        if (user.roles.length > 0) {
+                        if (user.roles.length > 0 && user.roles[0]) {
                           setSelectedRole(user.roles[0]);
                         }
                       }}
@@ -259,8 +262,8 @@ function UsersPage() {
       {/* Info */}
       <div className="rounded-lg border border-border/50 bg-secondary/50 p-4 text-sm text-muted-foreground">
         <p>
-          <strong>Conseil :</strong> Les utilisateurs sans rôle ne peuvent pas accéder à la plateforme.
-          Attribuez-leur un rôle pour leur permettre de se connecter.
+          <strong>Conseil :</strong> Les utilisateurs sans rôle ne peuvent pas accéder à la
+          plateforme. Attribuez-leur un rôle pour leur permettre de se connecter.
         </p>
       </div>
     </div>

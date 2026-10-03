@@ -12,12 +12,30 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ConditionsUtilisationRouteImport } from './routes/conditions-utilisation'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedClientRouteImport } from './routes/_authenticated/client'
+import { Route as AuthenticatedCoursierRouteImport } from './routes/_authenticated/coursier'
+import { Route as AuthenticatedParametresRouteImport } from './routes/_authenticated/parametres'
+import { Route as AuthenticatedVendeurRouteImport } from './routes/_authenticated/vendeur'
+import { Route as BoutiqueVendorIdRouteImport } from './routes/boutique.$vendorId'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminCommandesRouteImport } from './routes/_authenticated/admin.commandes'
+import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated/admin.coupons'
 import { Route as AuthenticatedAdminCoursiersRouteImport } from './routes/_authenticated/admin.coursiers'
 import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin.utilisateurs'
 import { Route as AuthenticatedAdminVendeursRouteImport } from './routes/_authenticated/admin.vendeurs'
+import { Route as AuthenticatedClientIndexRouteImport } from './routes/_authenticated/client.index'
+import { Route as AuthenticatedClientCommandesRouteImport } from './routes/_authenticated/client.commandes'
+import { Route as AuthenticatedClientProfilRouteImport } from './routes/_authenticated/client.profil'
+import { Route as AuthenticatedCoursierIndexRouteImport } from './routes/_authenticated/coursier/index'
+import { Route as AuthenticatedCoursierLivraisonsRouteImport } from './routes/_authenticated/coursier/livraisons'
+import { Route as AuthenticatedCoursierProfilRouteImport } from './routes/_authenticated/coursier/profil'
+import { Route as AuthenticatedVendeurIndexRouteImport } from './routes/_authenticated/vendeur/index'
+import { Route as AuthenticatedVendeurBoutiqueRouteImport } from './routes/_authenticated/vendeur/boutique'
+import { Route as AuthenticatedVendeurCommandesRouteImport } from './routes/_authenticated/vendeur/commandes'
+import { Route as AuthenticatedVendeurProduitsRouteImport } from './routes/_authenticated/vendeur/produits'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,10 +51,45 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConditionsUtilisationRoute = ConditionsUtilisationRouteImport.update({
+  id: '/conditions-utilisation',
+  path: '/conditions-utilisation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedClientRoute = AuthenticatedClientRouteImport.update({
+  id: '/client',
+  path: '/client',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCoursierRoute = AuthenticatedCoursierRouteImport.update({
+  id: '/coursier',
+  path: '/coursier',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedParametresRoute = AuthenticatedParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVendeurRoute = AuthenticatedVendeurRouteImport.update({
+  id: '/vendeur',
+  path: '/vendeur',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const BoutiqueVendorIdRoute = BoutiqueVendorIdRouteImport.update({
+  id: '/boutique/$vendorId',
+  path: '/boutique/$vendorId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
@@ -47,6 +100,12 @@ const AuthenticatedAdminCommandesRoute =
   AuthenticatedAdminCommandesRouteImport.update({
     id: '/commandes',
     path: '/commandes',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCouponsRoute =
+  AuthenticatedAdminCouponsRouteImport.update({
+    id: '/coupons',
+    path: '/coupons',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminCoursiersRoute =
@@ -67,75 +126,240 @@ const AuthenticatedAdminVendeursRoute =
     path: '/vendeurs',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedClientIndexRoute =
+  AuthenticatedClientIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedClientRoute,
+  } as any)
+const AuthenticatedClientCommandesRoute =
+  AuthenticatedClientCommandesRouteImport.update({
+    id: '/commandes',
+    path: '/commandes',
+    getParentRoute: () => AuthenticatedClientRoute,
+  } as any)
+const AuthenticatedClientProfilRoute =
+  AuthenticatedClientProfilRouteImport.update({
+    id: '/profil',
+    path: '/profil',
+    getParentRoute: () => AuthenticatedClientRoute,
+  } as any)
+const AuthenticatedCoursierIndexRoute =
+  AuthenticatedCoursierIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCoursierRoute,
+  } as any)
+const AuthenticatedCoursierLivraisonsRoute =
+  AuthenticatedCoursierLivraisonsRouteImport.update({
+    id: '/livraisons',
+    path: '/livraisons',
+    getParentRoute: () => AuthenticatedCoursierRoute,
+  } as any)
+const AuthenticatedCoursierProfilRoute =
+  AuthenticatedCoursierProfilRouteImport.update({
+    id: '/profil',
+    path: '/profil',
+    getParentRoute: () => AuthenticatedCoursierRoute,
+  } as any)
+const AuthenticatedVendeurIndexRoute =
+  AuthenticatedVendeurIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedVendeurRoute,
+  } as any)
+const AuthenticatedVendeurBoutiqueRoute =
+  AuthenticatedVendeurBoutiqueRouteImport.update({
+    id: '/boutique',
+    path: '/boutique',
+    getParentRoute: () => AuthenticatedVendeurRoute,
+  } as any)
+const AuthenticatedVendeurCommandesRoute =
+  AuthenticatedVendeurCommandesRouteImport.update({
+    id: '/commandes',
+    path: '/commandes',
+    getParentRoute: () => AuthenticatedVendeurRoute,
+  } as any)
+const AuthenticatedVendeurProduitsRoute =
+  AuthenticatedVendeurProduitsRouteImport.update({
+    id: '/produits',
+    path: '/produits',
+    getParentRoute: () => AuthenticatedVendeurRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/client': typeof AuthenticatedClientRouteWithChildren
+  '/coursier': typeof AuthenticatedCoursierRouteWithChildren
+  '/parametres': typeof AuthenticatedParametresRoute
+  '/vendeur': typeof AuthenticatedVendeurRouteWithChildren
+  '/boutique/$vendorId': typeof BoutiqueVendorIdRoute
   '/admin/commandes': typeof AuthenticatedAdminCommandesRoute
+  '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/coursiers': typeof AuthenticatedAdminCoursiersRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/admin/vendeurs': typeof AuthenticatedAdminVendeursRoute
+  '/client/commandes': typeof AuthenticatedClientCommandesRoute
+  '/client/profil': typeof AuthenticatedClientProfilRoute
+  '/coursier/livraisons': typeof AuthenticatedCoursierLivraisonsRoute
+  '/coursier/profil': typeof AuthenticatedCoursierProfilRoute
+  '/vendeur/boutique': typeof AuthenticatedVendeurBoutiqueRoute
+  '/vendeur/commandes': typeof AuthenticatedVendeurCommandesRoute
+  '/vendeur/produits': typeof AuthenticatedVendeurProduitsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/client/': typeof AuthenticatedClientIndexRoute
+  '/coursier/': typeof AuthenticatedCoursierIndexRoute
+  '/vendeur/': typeof AuthenticatedVendeurIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/parametres': typeof AuthenticatedParametresRoute
+  '/boutique/$vendorId': typeof BoutiqueVendorIdRoute
   '/admin/commandes': typeof AuthenticatedAdminCommandesRoute
+  '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/coursiers': typeof AuthenticatedAdminCoursiersRoute
   '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/admin/vendeurs': typeof AuthenticatedAdminVendeursRoute
+  '/client/commandes': typeof AuthenticatedClientCommandesRoute
+  '/client/profil': typeof AuthenticatedClientProfilRoute
+  '/coursier/livraisons': typeof AuthenticatedCoursierLivraisonsRoute
+  '/coursier/profil': typeof AuthenticatedCoursierProfilRoute
+  '/vendeur/boutique': typeof AuthenticatedVendeurBoutiqueRoute
+  '/vendeur/commandes': typeof AuthenticatedVendeurCommandesRoute
+  '/vendeur/produits': typeof AuthenticatedVendeurProduitsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/client': typeof AuthenticatedClientIndexRoute
+  '/coursier': typeof AuthenticatedCoursierIndexRoute
+  '/vendeur': typeof AuthenticatedVendeurIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/client': typeof AuthenticatedClientRouteWithChildren
+  '/_authenticated/coursier': typeof AuthenticatedCoursierRouteWithChildren
+  '/_authenticated/parametres': typeof AuthenticatedParametresRoute
+  '/_authenticated/vendeur': typeof AuthenticatedVendeurRouteWithChildren
+  '/boutique/$vendorId': typeof BoutiqueVendorIdRoute
   '/_authenticated/admin/commandes': typeof AuthenticatedAdminCommandesRoute
+  '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/_authenticated/admin/coursiers': typeof AuthenticatedAdminCoursiersRoute
   '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/_authenticated/admin/vendeurs': typeof AuthenticatedAdminVendeursRoute
+  '/_authenticated/client/commandes': typeof AuthenticatedClientCommandesRoute
+  '/_authenticated/client/profil': typeof AuthenticatedClientProfilRoute
+  '/_authenticated/coursier/livraisons': typeof AuthenticatedCoursierLivraisonsRoute
+  '/_authenticated/coursier/profil': typeof AuthenticatedCoursierProfilRoute
+  '/_authenticated/vendeur/boutique': typeof AuthenticatedVendeurBoutiqueRoute
+  '/_authenticated/vendeur/commandes': typeof AuthenticatedVendeurCommandesRoute
+  '/_authenticated/vendeur/produits': typeof AuthenticatedVendeurProduitsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/client/': typeof AuthenticatedClientIndexRoute
+  '/_authenticated/coursier/': typeof AuthenticatedCoursierIndexRoute
+  '/_authenticated/vendeur/': typeof AuthenticatedVendeurIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/conditions-utilisation'
+    | '/confidentialite'
     | '/admin'
+    | '/client'
+    | '/coursier'
+    | '/parametres'
+    | '/vendeur'
+    | '/boutique/$vendorId'
     | '/admin/commandes'
+    | '/admin/coupons'
     | '/admin/coursiers'
     | '/admin/utilisateurs'
     | '/admin/vendeurs'
+    | '/client/commandes'
+    | '/client/profil'
+    | '/coursier/livraisons'
+    | '/coursier/profil'
+    | '/vendeur/boutique'
+    | '/vendeur/commandes'
+    | '/vendeur/produits'
     | '/admin/'
+    | '/client/'
+    | '/coursier/'
+    | '/vendeur/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/conditions-utilisation'
+    | '/confidentialite'
+    | '/parametres'
+    | '/boutique/$vendorId'
     | '/admin/commandes'
+    | '/admin/coupons'
     | '/admin/coursiers'
     | '/admin/utilisateurs'
     | '/admin/vendeurs'
+    | '/client/commandes'
+    | '/client/profil'
+    | '/coursier/livraisons'
+    | '/coursier/profil'
+    | '/vendeur/boutique'
+    | '/vendeur/commandes'
+    | '/vendeur/produits'
     | '/admin'
+    | '/client'
+    | '/coursier'
+    | '/vendeur'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/conditions-utilisation'
+    | '/confidentialite'
     | '/_authenticated/admin'
+    | '/_authenticated/client'
+    | '/_authenticated/coursier'
+    | '/_authenticated/parametres'
+    | '/_authenticated/vendeur'
+    | '/boutique/$vendorId'
     | '/_authenticated/admin/commandes'
+    | '/_authenticated/admin/coupons'
     | '/_authenticated/admin/coursiers'
     | '/_authenticated/admin/utilisateurs'
     | '/_authenticated/admin/vendeurs'
+    | '/_authenticated/client/commandes'
+    | '/_authenticated/client/profil'
+    | '/_authenticated/coursier/livraisons'
+    | '/_authenticated/coursier/profil'
+    | '/_authenticated/vendeur/boutique'
+    | '/_authenticated/vendeur/commandes'
+    | '/_authenticated/vendeur/produits'
     | '/_authenticated/admin/'
+    | '/_authenticated/client/'
+    | '/_authenticated/coursier/'
+    | '/_authenticated/vendeur/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ConditionsUtilisationRoute: typeof ConditionsUtilisationRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
+  BoutiqueVendorIdRoute: typeof BoutiqueVendorIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -161,12 +385,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conditions-utilisation': {
+      id: '/conditions-utilisation'
+      path: '/conditions-utilisation'
+      fullPath: '/conditions-utilisation'
+      preLoaderRoute: typeof ConditionsUtilisationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/client': {
+      id: '/_authenticated/client'
+      path: '/client'
+      fullPath: '/client'
+      preLoaderRoute: typeof AuthenticatedClientRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/coursier': {
+      id: '/_authenticated/coursier'
+      path: '/coursier'
+      fullPath: '/coursier'
+      preLoaderRoute: typeof AuthenticatedCoursierRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parametres': {
+      id: '/_authenticated/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof AuthenticatedParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/vendeur': {
+      id: '/_authenticated/vendeur'
+      path: '/vendeur'
+      fullPath: '/vendeur'
+      preLoaderRoute: typeof AuthenticatedVendeurRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/boutique/$vendorId': {
+      id: '/boutique/$vendorId'
+      path: '/boutique/$vendorId'
+      fullPath: '/boutique/$vendorId'
+      preLoaderRoute: typeof BoutiqueVendorIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -180,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/commandes'
       fullPath: '/admin/commandes'
       preLoaderRoute: typeof AuthenticatedAdminCommandesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/coupons': {
+      id: '/_authenticated/admin/coupons'
+      path: '/coupons'
+      fullPath: '/admin/coupons'
+      preLoaderRoute: typeof AuthenticatedAdminCouponsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/coursiers': {
@@ -203,11 +483,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminVendeursRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/client/': {
+      id: '/_authenticated/client/'
+      path: '/'
+      fullPath: '/client/'
+      preLoaderRoute: typeof AuthenticatedClientIndexRouteImport
+      parentRoute: typeof AuthenticatedClientRoute
+    }
+    '/_authenticated/client/commandes': {
+      id: '/_authenticated/client/commandes'
+      path: '/commandes'
+      fullPath: '/client/commandes'
+      preLoaderRoute: typeof AuthenticatedClientCommandesRouteImport
+      parentRoute: typeof AuthenticatedClientRoute
+    }
+    '/_authenticated/client/profil': {
+      id: '/_authenticated/client/profil'
+      path: '/profil'
+      fullPath: '/client/profil'
+      preLoaderRoute: typeof AuthenticatedClientProfilRouteImport
+      parentRoute: typeof AuthenticatedClientRoute
+    }
+    '/_authenticated/coursier/': {
+      id: '/_authenticated/coursier/'
+      path: '/'
+      fullPath: '/coursier/'
+      preLoaderRoute: typeof AuthenticatedCoursierIndexRouteImport
+      parentRoute: typeof AuthenticatedCoursierRoute
+    }
+    '/_authenticated/coursier/livraisons': {
+      id: '/_authenticated/coursier/livraisons'
+      path: '/livraisons'
+      fullPath: '/coursier/livraisons'
+      preLoaderRoute: typeof AuthenticatedCoursierLivraisonsRouteImport
+      parentRoute: typeof AuthenticatedCoursierRoute
+    }
+    '/_authenticated/coursier/profil': {
+      id: '/_authenticated/coursier/profil'
+      path: '/profil'
+      fullPath: '/coursier/profil'
+      preLoaderRoute: typeof AuthenticatedCoursierProfilRouteImport
+      parentRoute: typeof AuthenticatedCoursierRoute
+    }
+    '/_authenticated/vendeur/': {
+      id: '/_authenticated/vendeur/'
+      path: '/'
+      fullPath: '/vendeur/'
+      preLoaderRoute: typeof AuthenticatedVendeurIndexRouteImport
+      parentRoute: typeof AuthenticatedVendeurRoute
+    }
+    '/_authenticated/vendeur/boutique': {
+      id: '/_authenticated/vendeur/boutique'
+      path: '/boutique'
+      fullPath: '/vendeur/boutique'
+      preLoaderRoute: typeof AuthenticatedVendeurBoutiqueRouteImport
+      parentRoute: typeof AuthenticatedVendeurRoute
+    }
+    '/_authenticated/vendeur/commandes': {
+      id: '/_authenticated/vendeur/commandes'
+      path: '/commandes'
+      fullPath: '/vendeur/commandes'
+      preLoaderRoute: typeof AuthenticatedVendeurCommandesRouteImport
+      parentRoute: typeof AuthenticatedVendeurRoute
+    }
+    '/_authenticated/vendeur/produits': {
+      id: '/_authenticated/vendeur/produits'
+      path: '/produits'
+      fullPath: '/vendeur/produits'
+      preLoaderRoute: typeof AuthenticatedVendeurProduitsRouteImport
+      parentRoute: typeof AuthenticatedVendeurRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCommandesRoute: typeof AuthenticatedAdminCommandesRoute
+  AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
   AuthenticatedAdminCoursiersRoute: typeof AuthenticatedAdminCoursiersRoute
   AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
   AuthenticatedAdminVendeursRoute: typeof AuthenticatedAdminVendeursRoute
@@ -216,6 +567,7 @@ interface AuthenticatedAdminRouteChildren {
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCommandesRoute: AuthenticatedAdminCommandesRoute,
+  AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
   AuthenticatedAdminCoursiersRoute: AuthenticatedAdminCoursiersRoute,
   AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
   AuthenticatedAdminVendeursRoute: AuthenticatedAdminVendeursRoute,
@@ -225,12 +577,69 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
 const AuthenticatedAdminRouteWithChildren =
   AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
+interface AuthenticatedClientRouteChildren {
+  AuthenticatedClientCommandesRoute: typeof AuthenticatedClientCommandesRoute
+  AuthenticatedClientProfilRoute: typeof AuthenticatedClientProfilRoute
+  AuthenticatedClientIndexRoute: typeof AuthenticatedClientIndexRoute
+}
+
+const AuthenticatedClientRouteChildren: AuthenticatedClientRouteChildren = {
+  AuthenticatedClientCommandesRoute: AuthenticatedClientCommandesRoute,
+  AuthenticatedClientProfilRoute: AuthenticatedClientProfilRoute,
+  AuthenticatedClientIndexRoute: AuthenticatedClientIndexRoute,
+}
+
+const AuthenticatedClientRouteWithChildren =
+  AuthenticatedClientRoute._addFileChildren(AuthenticatedClientRouteChildren)
+
+interface AuthenticatedCoursierRouteChildren {
+  AuthenticatedCoursierLivraisonsRoute: typeof AuthenticatedCoursierLivraisonsRoute
+  AuthenticatedCoursierProfilRoute: typeof AuthenticatedCoursierProfilRoute
+  AuthenticatedCoursierIndexRoute: typeof AuthenticatedCoursierIndexRoute
+}
+
+const AuthenticatedCoursierRouteChildren: AuthenticatedCoursierRouteChildren = {
+  AuthenticatedCoursierLivraisonsRoute: AuthenticatedCoursierLivraisonsRoute,
+  AuthenticatedCoursierProfilRoute: AuthenticatedCoursierProfilRoute,
+  AuthenticatedCoursierIndexRoute: AuthenticatedCoursierIndexRoute,
+}
+
+const AuthenticatedCoursierRouteWithChildren =
+  AuthenticatedCoursierRoute._addFileChildren(
+    AuthenticatedCoursierRouteChildren,
+  )
+
+interface AuthenticatedVendeurRouteChildren {
+  AuthenticatedVendeurBoutiqueRoute: typeof AuthenticatedVendeurBoutiqueRoute
+  AuthenticatedVendeurCommandesRoute: typeof AuthenticatedVendeurCommandesRoute
+  AuthenticatedVendeurProduitsRoute: typeof AuthenticatedVendeurProduitsRoute
+  AuthenticatedVendeurIndexRoute: typeof AuthenticatedVendeurIndexRoute
+}
+
+const AuthenticatedVendeurRouteChildren: AuthenticatedVendeurRouteChildren = {
+  AuthenticatedVendeurBoutiqueRoute: AuthenticatedVendeurBoutiqueRoute,
+  AuthenticatedVendeurCommandesRoute: AuthenticatedVendeurCommandesRoute,
+  AuthenticatedVendeurProduitsRoute: AuthenticatedVendeurProduitsRoute,
+  AuthenticatedVendeurIndexRoute: AuthenticatedVendeurIndexRoute,
+}
+
+const AuthenticatedVendeurRouteWithChildren =
+  AuthenticatedVendeurRoute._addFileChildren(AuthenticatedVendeurRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedClientRoute: typeof AuthenticatedClientRouteWithChildren
+  AuthenticatedCoursierRoute: typeof AuthenticatedCoursierRouteWithChildren
+  AuthenticatedParametresRoute: typeof AuthenticatedParametresRoute
+  AuthenticatedVendeurRoute: typeof AuthenticatedVendeurRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedClientRoute: AuthenticatedClientRouteWithChildren,
+  AuthenticatedCoursierRoute: AuthenticatedCoursierRouteWithChildren,
+  AuthenticatedParametresRoute: AuthenticatedParametresRoute,
+  AuthenticatedVendeurRoute: AuthenticatedVendeurRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -240,6 +649,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ConditionsUtilisationRoute: ConditionsUtilisationRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
+  BoutiqueVendorIdRoute: BoutiqueVendorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

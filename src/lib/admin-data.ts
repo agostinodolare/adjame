@@ -29,6 +29,7 @@ export type Order = {
   commune: string;
   address: string | null;
   items_total: number;
+  discount_total: number;
   delivery_fee: number;
   status: string;
   vendor_id: string | null;
@@ -56,8 +57,19 @@ export const courierAvailabilities = ["disponible", "en livraison", "hors ligne"
 export const vendorStatuses = ["actif", "suspendu"] as const;
 export const vendorCategories = ["Femme", "Homme", "Enfant", "Chaussures", "Téléphones", "Divers"];
 
-export const formatPrice = (value: number) =>
-  new Intl.NumberFormat("fr-FR").format(value) + " F";
+export function courierCoversCommune(zone: string, commune: string) {
+  const normalizedCommune = commune.trim().toLocaleLowerCase("fr");
+  return zone
+    .split(/[/,;|]/)
+    .map((coveredZone) => coveredZone.trim().toLocaleLowerCase("fr"))
+    .some(
+      (coveredZone) =>
+        coveredZone === normalizedCommune ||
+        (coveredZone === "abidjan" && normalizedCommune !== "intérieur du pays"),
+    );
+}
+
+export const formatPrice = (value: number) => new Intl.NumberFormat("fr-FR").format(value) + " F";
 
 export const formatDateTime = (value: string) =>
   new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "short" }).format(

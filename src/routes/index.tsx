@@ -27,17 +27,10 @@ import { communes, deliveryFeeFor, requestDelivery } from "@/lib/orders.function
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MarchéGo — Les bonnes affaires d’Adjamé, livrées chez vous" },
-      {
-        name: "description",
-        content:
-          "Découvrez les vendeurs d’Adjamé, choisissez vos articles et faites-vous livrer partout à Abidjan.",
-      },
-      { property: "og:title", content: "MarchéGo — Adjamé chez vous" },
-      {
-        property: "og:description",
-        content: "Les meilleurs vendeurs d’Adjamé réunis en un seul endroit, avec livraison à Abidjan.",
-      },
+      { title: "MarcheGo - Les bonnes affaires d'Adjame, livrees chez vous" },
+      { name: "description", content: "Decouvrez les vendeurs d'Adjame et faites-vous livrer partout a Abidjan." },
+      { property: "og:title", content: "MarcheGo - Adjame chez vous" },
+      { property: "og:description", content: "Les meilleurs vendeurs d'Adjame reunis en un seul endroit, avec livraison a Abidjan." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -45,13 +38,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const categories = ["Tout", "Femme", "Homme", "Enfant", "Chaussures", "Téléphones"];
+const categories = ["Tout", "Femme", "Homme", "Enfant", "Chaussures", "TÃ©lÃ©phones"];
 
 const products = [
   {
     id: 1,
-    name: "Paniers tressés artisanaux",
-    seller: "Chez Awa Créations",
+    name: "Paniers tressÃ©s artisanaux",
+    seller: "Chez Awa CrÃ©ations",
     category: "Femme",
     price: 8500,
     oldPrice: 10000,
@@ -73,8 +66,8 @@ const products = [
   {
     id: 3,
     name: "Smartphone Nexo A15",
-    seller: "Adjamé Digital",
-    category: "Téléphones",
+    seller: "AdjamÃ© Digital",
+    category: "TÃ©lÃ©phones",
     price: 79500,
     oldPrice: 85000,
     image: phoneImage,
@@ -97,7 +90,7 @@ function Index() {
   const [form, setForm] = useState({
     customer_name: "",
     customer_phone: "",
-    commune: "Adjamé",
+    commune: "AdjamÃ©",
     address: "",
   });
 
@@ -126,12 +119,12 @@ function Index() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur">
-        <div className="mx-auto flex h-18 max-w-7xl items-center gap-5 px-4 sm:px-6 lg:px-8">
-          <a href="#top" className="flex shrink-0 items-center gap-2.5" aria-label="Accueil MarchéGo">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-3 sm:px-6 lg:px-8">
+          <a href="#top" className="flex shrink-0 items-center gap-2.5" aria-label="Accueil MarchÃ©Go">
             <span className="grid size-10 place-items-center rounded-md bg-primary text-primary-foreground shadow-brand">
               <ShoppingBag className="size-5" strokeWidth={2.5} />
             </span>
-            <span className="font-display text-xl font-extrabold">Marché<span className="text-primary">Go</span></span>
+            <span className="font-display text-xl font-extrabold">MarchÃ©<span className="text-primary">Go</span></span>
           </a>
 
           <div className="relative hidden max-w-lg flex-1 md:block">
@@ -141,14 +134,14 @@ function Index() {
               onChange={(event) => setQuery(event.target.value)}
               onFocus={browse}
               aria-label="Rechercher un produit ou un vendeur"
-              placeholder="Que cherchez-vous à Adjamé ?"
-              className="h-11 w-full rounded-md border border-input bg-secondary pl-11 pr-4 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+              placeholder="Que cherchez-vous Ã  AdjamÃ© ?"
+              className="h-11 w-full rounded-md border border-input bg-secondary pl-10 pr-32 text-sm md:pl-11 md:pr-4 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
             />
           </div>
 
           <nav className="ml-auto hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
             <a href="#catalogue" className="text-sm font-semibold hover:text-primary">Boutiques</a>
-            <a href="#livraison" className="text-sm font-semibold hover:text-primary">Comment ça marche</a>
+            <a href="#livraison" className="text-sm font-semibold hover:text-primary">Comment Ã§a marche</a>
             <Link to="/auth" search={{ mode: "signup", role: "vendeur" }} className="text-sm font-semibold hover:text-primary">
               Devenir vendeur
             </Link>
@@ -171,42 +164,42 @@ function Index() {
           </Button>
         </div>
         {menuOpen && (
-          <div className="border-t border-border bg-background px-4 py-4 lg:hidden">
-            <div className="relative mb-4 md:hidden">
+          <div className="border-t border-border bg-background px-3 py-3 lg:hidden">
+            <div className="relative mb-3 md:hidden">
               <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher à Adjamé" className="h-11 w-full rounded-md border border-input bg-secondary pl-11 pr-4 text-sm" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher Ã  AdjamÃ©" className="h-11 w-full rounded-md border border-input bg-secondary pl-10 pr-32 text-sm md:pl-11 md:pr-4" />
             </div>
             <a href="#catalogue" onClick={() => setMenuOpen(false)} className="block py-2 font-semibold">Boutiques</a>
-            <a href="#livraison" onClick={() => setMenuOpen(false)} className="block py-2 font-semibold">Comment ça marche</a>
+            <a href="#livraison" onClick={() => setMenuOpen(false)} className="block py-2 font-semibold">Comment Ã§a marche</a>
             <Link to="/auth" search={{ mode: "signup", role: "vendeur" }} onClick={() => setMenuOpen(false)} className="block py-2 font-semibold text-primary">Devenir vendeur</Link>
             <Link to="/auth" search={{}} onClick={() => setMenuOpen(false)} className="block py-2 font-semibold text-muted-foreground">Espace pro (connexion)</Link>
           </div>
         )}
       </header>
 
-      <section id="top" className="relative min-h-[620px] md:min-h-[690px]">
-        <img src={heroImage} alt="Des clients découvrent les boutiques du marché d’Adjamé" width={1600} height={1000} className="absolute inset-0 size-full object-cover object-[66%_center]" />
+      <section id="top" className="relative min-h-[450px] sm:min-h-[620px] md:min-h-[690px]">
+        <img src={heroImage} alt="Des clients dÃ©couvrent les boutiques du marchÃ© dâ€™AdjamÃ©" width={1600} height={1000} className="absolute inset-0 size-full object-cover object-[66%_center]" />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-4 py-16 sm:px-6 md:min-h-[690px] lg:px-8">
+        <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-3 py-12 sm:px-6 sm:py-16 md:min-h-[690px] lg:px-8">
           <div className="max-w-2xl text-primary-foreground">
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-background/92 px-4 py-2 text-sm font-bold text-foreground shadow-lg">
-              <MapPin className="size-4 text-accent" /> Le grand marché, maintenant chez vous
+            <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-background/92 px-3 py-1.5 text-xs font-bold sm:mb-5 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm text-foreground shadow-lg">
+              <MapPin className="size-4 text-accent" /> Le grand marchÃ©, maintenant chez vous
             </span>
-            <h1 className="font-display text-5xl font-black leading-[1.02] sm:text-6xl lg:text-7xl">
-              Tout Adjamé,<br />sans la foule.
+            <h1 className="font-display text-4xl font-black leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl">
+              Tout AdjamÃ©,<br />sans la foule.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-primary-foreground/90 sm:text-xl">
-              Trouvez les bons vendeurs, commandez au prix du marché et recevez vos articles partout à Abidjan.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-primary-foreground/90 sm:mt-6 sm:text-lg md:text-xl">
+              Trouvez les bons vendeurs, commandez au prix du marchÃ© et recevez vos articles partout Ã  Abidjan.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
               <Button size="lg" onClick={browse} className="h-13 bg-accent px-6 text-accent-foreground shadow-xl hover:bg-accent/90">
-                Explorer le marché <ArrowRight />
+                Explorer le marchÃ© <ArrowRight />
               </Button>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
-              <span className="flex items-center gap-2"><Check className="size-4 text-highlight" /> Vendeurs vérifiés</span>
+              <span className="flex items-center gap-2"><Check className="size-4 text-highlight" /> Vendeurs vÃ©rifiÃ©s</span>
               <span className="flex items-center gap-2"><Check className="size-4 text-highlight" /> Livraison suivie</span>
-              <span className="flex items-center gap-2"><Check className="size-4 text-highlight" /> Paiement à la livraison</span>
+              <span className="flex items-center gap-2"><Check className="size-4 text-highlight" /> Paiement Ã  la livraison</span>
             </div>
           </div>
         </div>
@@ -225,9 +218,9 @@ function Index() {
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="mb-2 text-sm font-bold uppercase text-accent">Trouvailles du moment</p>
-              <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Le marché vient à vous</h2>
+              <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Le marchÃ© vient Ã  vous</h2>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">Articles proposés par des commerçants d’Adjamé. Le coursier confirme la disponibilité avant de partir.</p>
+            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">Articles proposÃ©s par des commerÃ§ants dâ€™AdjamÃ©. Le coursier confirme la disponibilitÃ© avant de partir.</p>
           </div>
 
           <div className="mt-8 flex gap-2 overflow-x-auto pb-3 scrollbar-none">
@@ -238,19 +231,19 @@ function Index() {
             ))}
           </div>
 
-          <div className="mt-7 grid gap-6 md:grid-cols-3">
+          <div className="mt-5 grid gap-4 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
             {visibleProducts.map((product) => (
-              <article key={product.id} className="group overflow-hidden rounded-lg border border-border bg-card shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-brand">
+              <article key={product.id} className="group overflow-hidden rounded-lg border border-border bg-card shadow-soft transition duration-200 hover:-translate-y-0.5 hover:shadow-brand sm:duration-300 sm:hover:-translate-y-1">
                 <div className={`relative aspect-square overflow-hidden ${product.tone}`}>
                   <img src={product.image} alt={product.name} width={912} height={912} loading="lazy" className="size-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                   <span className="absolute left-3 top-3 rounded-sm bg-background px-3 py-1.5 text-xs font-bold text-foreground shadow-sm">{product.badge}</span>
                 </div>
-                <div className="p-5">
+                <div className="p-3 sm:p-4 md:p-5">
                   <div className="mb-2 flex items-center justify-between gap-2">
                     <span className="flex items-center gap-1 text-xs font-semibold text-primary"><BadgeCheck className="size-4" /> {product.seller}</span>
                     <span className="flex items-center gap-1 text-xs font-bold"><Star className="size-3 fill-highlight text-highlight" /> 4,8</span>
                   </div>
-                  <h3 className="font-display text-lg font-bold">{product.name}</h3>
+                  <h3 className="font-display text-base font-bold sm:text-lg">{product.name}</h3>
                   <div className="mt-4 flex items-end justify-between gap-3">
                     <div><strong className="block text-lg">{formatPrice(product.price)}</strong><span className="text-xs text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span></div>
                     {cart[product.id] ? (
@@ -268,7 +261,7 @@ function Index() {
             ))}
           </div>
           {visibleProducts.length === 0 && (
-            <div className="mt-8 border-y border-border py-16 text-center"><p className="font-display text-xl font-bold">Aucun article trouvé</p><Button variant="link" onClick={() => { setQuery(""); setActiveCategory("Tout"); }}>Voir tout le marché</Button></div>
+            <div className="mt-6 border-y border-border py-10 text-center sm:mt-8 sm:py-16"><p className="font-display text-lg font-bold sm:text-xl">Aucun article trouvÃ©</p><Button variant="link" onClick={() => { setQuery(""); setActiveCategory("Tout"); }}>Voir tout le marchÃ©</Button></div>
           )}
         </div>
       </section>
@@ -278,20 +271,20 @@ function Index() {
           <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="mb-2 text-sm font-bold uppercase text-accent">Simple comme bonjour</p>
-              <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Du marché à votre porte</h2>
-              <p className="mt-4 leading-relaxed text-muted-foreground">Un service humain, pensé pour les réalités d’Abidjan.</p>
+              <h2 className="font-display text-3xl font-extrabold sm:text-4xl">Du marchÃ© Ã  votre porte</h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">Un service humain, pensÃ© pour les rÃ©alitÃ©s dâ€™Abidjan.</p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-2 sm:gap-3 sm:grid-cols-2 md:grid-cols-3">
               {[
-                [Store, "01", "Choisissez", "Parcourez les offres des vendeurs vérifiés."],
-                [BadgeCheck, "02", "Confirmez", "Un agent vérifie le prix et la disponibilité."],
-                [Bike, "03", "Recevez", "Un coursier récupère et livre votre commande."],
+                [Store, "01", "Choisissez", "Parcourez les offres des vendeurs vÃ©rifiÃ©s."],
+                [BadgeCheck, "02", "Confirmez", "Un agent vÃ©rifie le prix et la disponibilitÃ©."],
+                [Bike, "03", "Recevez", "Un coursier rÃ©cupÃ¨re et livre votre commande."],
               ].map(([Icon, number, title, text]) => {
                 const StepIcon = Icon as typeof Store;
                 return (
-                  <div key={String(number)} className="border-l-2 border-primary bg-background p-5">
+                  <div key={String(number)} className="border-l-2 border-primary bg-background p-3 sm:p-4 md:p-5">
                     <div className="flex items-center justify-between"><StepIcon className="size-6 text-primary" /><span className="font-display text-2xl font-black text-border">{String(number)}</span></div>
-                    <h3 className="mt-8 font-display text-lg font-bold">{String(title)}</h3>
+                    <h3 className="mt-8 font-display text-base font-bold sm:text-lg">{String(title)}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{String(text)}</p>
                   </div>
                 );
@@ -303,27 +296,27 @@ function Index() {
 
       <footer className="bg-foreground py-10 text-background">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 px-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
-          <div><span className="font-display text-xl font-extrabold">MarchéGo</span><p className="mt-1 text-sm text-background/65">Adjamé à portée de main.</p></div>
-          <div className="flex flex-wrap items-center gap-5 text-sm text-background/75"><a href="#catalogue">Catalogue</a><a href="#livraison">Livraison</a><Link to="/auth" search={{ mode: "signup", role: "vendeur" }}>Devenir vendeur</Link><Link to="/auth" search={{}}>Espace pro</Link><span>Abidjan, Côte d’Ivoire</span></div>
+          <div><span className="font-display text-xl font-extrabold">MarchÃ©Go</span><p className="mt-1 text-sm text-background/65">AdjamÃ© Ã  portÃ©e de main.</p></div>
+          <div className="flex flex-wrap items-center gap-3 sm:p-4 md:p-5 text-sm text-background/75"><a href="#catalogue">Catalogue</a><a href="#livraison">Livraison</a><Link to="/auth" search={{ mode: "signup", role: "vendeur" }}>Devenir vendeur</Link><Link to="/auth" search={{}}>Espace pro</Link><span>Abidjan, CÃ´te dâ€™Ivoire</span></div>
         </div>
       </footer>
 
       {cartOpen && (
         <div className="fixed inset-0 z-50 bg-foreground/45" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setCartOpen(false); }}>
-          <aside className="ml-auto flex h-full w-full max-w-md flex-col bg-background shadow-2xl" role="dialog" aria-modal="true" aria-label="Mon panier">
-            <div className="flex items-center justify-between border-b border-border p-5"><div><h2 className="font-display text-xl font-bold">Mon panier</h2><p className="text-xs text-muted-foreground">{cartCount} article{cartCount > 1 ? "s" : ""}</p></div><Button variant="ghost" size="icon" onClick={() => setCartOpen(false)} aria-label="Fermer le panier"><X /></Button></div>
-            <div className="flex-1 overflow-y-auto p-5">
+          <aside className="ml-auto flex h-full w-full max-w-[90vw] max-w-md flex-col bg-background shadow-xl sm:shadow-2xl" role="dialog" aria-modal="true" aria-label="Mon panier">
+            <div className="flex items-center justify-between border-b border-border p-3 sm:p-4 md:p-5"><div><h2 className="font-display text-lg font-bold sm:text-xl">Mon panier</h2><p className="text-xs text-muted-foreground">{cartCount} article{cartCount > 1 ? "s" : ""}</p></div><Button variant="ghost" size="icon" onClick={() => setCartOpen(false)} aria-label="Fermer le panier"><X /></Button></div>
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-5">
               {ordered ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <span className="grid size-16 place-items-center rounded-full bg-mint text-primary"><Check className="size-8" /></span>
-                  <h3 className="mt-5 font-display text-2xl font-bold">Demande envoyée !</h3>
+                  <h3 className="mt-5 font-display text-2xl font-bold">Demande envoyÃ©e !</h3>
                   <p className="mt-2 font-semibold">Commande {ordered.reference}</p>
                   <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                    Livraison à {form.commune} : {formatPrice(ordered.delivery_fee)}. Un agent MarchéGo vous appelle au {form.customer_phone} pour confirmer la disponibilité chez le vendeur.
+                    Livraison Ã  {form.commune} : {formatPrice(ordered.delivery_fee)}. Un agent MarchÃ©Go vous appelle au {form.customer_phone} pour confirmer la disponibilitÃ© chez le vendeur.
                   </p>
                 </div>
               ) : cartCount === 0 ? (
-                <div className="flex h-full flex-col items-center justify-center text-center"><ShoppingBag className="size-12 text-muted-foreground" /><h3 className="mt-4 font-display text-xl font-bold">Votre panier est vide</h3><p className="mt-2 text-sm text-muted-foreground">Ajoutez une trouvaille du marché.</p><Button className="mt-5" onClick={() => { setCartOpen(false); browse(); }}>Voir les articles</Button></div>
+                <div className="flex h-full flex-col items-center justify-center text-center"><ShoppingBag className="size-12 text-muted-foreground" /><h3 className="mt-4 font-display text-lg font-bold sm:text-xl">Votre panier est vide</h3><p className="mt-2 text-sm text-muted-foreground">Ajoutez une trouvaille du marchÃ©.</p><Button className="mt-5" onClick={() => { setCartOpen(false); browse(); }}>Voir les articles</Button></div>
               ) : (
                 <div className="space-y-5">
                   {products.filter((product) => cart[product.id]).map((product) => (
@@ -334,7 +327,7 @@ function Index() {
             </div>
             {!ordered && cartCount > 0 && (
               <form
-                className="space-y-3 border-t border-border p-5"
+                className="space-y-3 border-t border-border p-3 sm:p-4 md:p-5"
                 onSubmit={async (event) => {
                   event.preventDefault();
                   setSending(true);
@@ -354,7 +347,7 @@ function Index() {
                     setOrdered(result);
                     setCart({});
                   } catch {
-                    setOrderError("Impossible d’envoyer la demande. Vérifiez vos informations et réessayez.");
+                    setOrderError("Impossible dâ€™envoyer la demande. VÃ©rifiez vos informations et rÃ©essayez.");
                   } finally {
                     setSending(false);
                   }
@@ -362,20 +355,20 @@ function Index() {
               >
                 <div className="flex justify-between font-bold"><span>Sous-total</span><span>{formatPrice(cartTotal)}</span></div>
                 <div className="flex justify-between text-sm text-muted-foreground"><span>Livraison ({form.commune})</span><span>{formatPrice(deliveryFeeFor(form.commune))}</span></div>
-                <div className="flex justify-between border-t border-border pt-2 font-bold"><span>Total à payer</span><span>{formatPrice(cartTotal + deliveryFeeFor(form.commune))}</span></div>
+                <div className="flex justify-between border-t border-border pt-2 font-bold"><span>Total Ã  payer</span><span>{formatPrice(cartTotal + deliveryFeeFor(form.commune))}</span></div>
                 <input required minLength={2} placeholder="Votre nom" aria-label="Votre nom" value={form.customer_name} onChange={(event) => setForm({ ...form, customer_name: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary" />
-                <input required minLength={8} placeholder="Téléphone (WhatsApp)" aria-label="Téléphone" value={form.customer_phone} onChange={(event) => setForm({ ...form, customer_phone: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary" />
+                <input required minLength={8} placeholder="TÃ©lÃ©phone (WhatsApp)" aria-label="TÃ©lÃ©phone" value={form.customer_phone} onChange={(event) => setForm({ ...form, customer_phone: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary" />
                 <select aria-label="Commune de livraison" value={form.commune} onChange={(event) => setForm({ ...form, commune: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary">
                   {communes.map((commune) => (
                     <option key={commune} value={commune}>{commune}</option>
                   ))}
                 </select>
-                <input placeholder="Quartier, repère (facultatif)" aria-label="Adresse" value={form.address} onChange={(event) => setForm({ ...form, address: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary" />
+                <input placeholder="Quartier, repÃ¨re (facultatif)" aria-label="Adresse" value={form.address} onChange={(event) => setForm({ ...form, address: event.target.value })} className="h-11 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary" />
                 {orderError && <p className="text-sm text-destructive">{orderError}</p>}
                 <Button type="submit" disabled={sending} className="h-12 w-full">
-                  {sending ? "Envoi en cours…" : "Demander la livraison"} <ChevronRight />
+                  {sending ? "Envoi en coursâ€¦" : "Demander la livraison"} <ChevronRight />
                 </Button>
-                <p className="text-xs text-muted-foreground">Paiement à la livraison ou Mobile Money, après confirmation du vendeur.</p>
+                <p className="text-xs text-muted-foreground">Paiement Ã  la livraison ou Mobile Money, aprÃ¨s confirmation du vendeur.</p>
               </form>
             )}
           </aside>

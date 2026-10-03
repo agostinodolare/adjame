@@ -78,6 +78,32 @@
 @utility shadow-soft { box-shadow: 0 12px 35px -25px color-mix(in oklab, var(--foreground) 35%, transparent); }
 @utility scrollbar-none { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
 
+/* Utilitaires responsive pour mobile */
+@utility text-balance { text-wrap: balance; }
+@utility text-pretty { text-wrap: pretty; }
+@utility touch-manipulation { touch-action: manipulation; }
+@utility scroll-mt-16 { scroll-margin-top: 4rem; }
+@utility scroll-mt-20 { scroll-margin-top: 5rem; }
+@utility scroll-mt-24 { scroll-margin-top: 6rem; }
+
+/* Classe pour empÃªcher le sÃ©lection de texte sur les boutons tactiles */
+@utility no-select { user-select: none; -webkit-user-select: none; }
+
+@keyframes promotion-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.promotion-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: promotion-marquee-scroll 28s linear infinite;
+}
+
+.promotion-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 @media (max-width: 640px) {
   .bg-hero-overlay {
     background: linear-gradient(90deg, color-mix(in oklab, var(--foreground) 88%, transparent) 0%, color-mix(in oklab, var(--foreground) 66%, transparent) 72%, color-mix(in oklab, var(--foreground) 32%, transparent) 100%);
@@ -86,4 +112,140 @@
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  .promotion-marquee-track { animation: none; }
 }
+
+/* ===== RESPONSIVITE MOBILE ANDROID =====
+   Optimisations spÃ©cifiques pour les appareils mobiles (max-width: 768px) */
+
+@media (max-width: 768px) {
+  /* Reset de la taille des polices pour mobile */
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* EmpÃªche le zoom automatique sur les inputs sur iOS/Android */
+  input, textarea, select, button {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+  
+  /* AmÃ©lioration du touch target pour les Ã©lÃ©ments cliquables */
+  button, [role="button"], a, .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Optimisation des images pour mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Gestion du dÃ©filement horizontal */
+  body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Adaptation des conteneurs */
+  .container, .mx-auto {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Optimisations pour trÃ¨s petits Ã©crans (mobile) */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  /* RÃ©duction des espacements sur trÃ¨s petits Ã©crans */
+  .py-16 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .py-20 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  /* Taille des boutons adaptÃ©e */
+  .btn-mobile {
+    padding: 0.75rem 1.5rem;
+    font-size: 14px;
+  }
+}
+
+/* Optimisations pour tablettes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container, .mx-auto {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Fix pour le clavier virtuel sur mobile */
+@media (max-width: 768px) {
+  /* DÃ©place la vue quand le clavier apparaÃ®t */
+  input:focus, textarea:focus, select:focus {
+    scroll-margin-top: 100px;
+  }
+  
+  /* EmpÃªche le double-tap zoom sur les Ã©lÃ©ments touch */
+  .no-touch-zoom {
+    touch-action: manipulation;
+  }
+}
+
+/* AmÃ©lioration des dialogs sur mobile */
+@media (max-width: 640px) {
+  .dialog-mobile {
+    width: calc(100vw - 2rem) !important;
+    max-width: 100% !important;
+    margin: 1rem;
+  }
+}
+
+/* Optimisation des grilles sur mobile */
+@media (max-width: 640px) {
+  .grid-mobile-1 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid-mobile-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* Espacement rÃ©duit sur mobile */
+@media (max-width: 768px) {
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Adaptation des icÃ´nes sur mobile */
+@media (max-width: 640px) {
+  .icon-mobile {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* Gestion des ombres et effets visuels sur mobile */
+@media (max-width: 768px) {
+  .shadow-reduce {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  }
+}
+
+/* ===== FIN RESPONSIVITE MOBILE ===== */

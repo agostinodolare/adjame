@@ -38,7 +38,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 const inputClass =
-  "h-11 w-full rounded-md border border-input bg-secondary px-4 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
+  "h-10 w-full rounded-md border border-input bg-secondary px-3 text-sm sm:h-11 sm:px-4 outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -208,8 +208,8 @@ function AuthPage() {
   const isCourierSignup = mode === "signup" && profile === "livreur";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-secondary px-4 py-12">
-      <div className="w-full max-w-md rounded-lg border border-border bg-background p-7 shadow-soft">
+    <main className="flex min-h-screen items-center justify-center bg-secondary px-3 py-8 sm:px-4 sm:py-12">
+      <div className="w-full max-w-[90vw] max-w-md rounded-lg border border-border bg-background p-4 shadow-soft sm:p-6 md:p-7">
         <span className="grid size-11 place-items-center rounded-md bg-primary text-primary-foreground">
           {isVendorSignup ? <Store className="size-6" /> : isCourierSignup ? <Truck className="size-6" /> : <ShieldCheck className="size-6" />}
         </span>

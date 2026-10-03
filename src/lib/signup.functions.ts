@@ -1,10 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-export const vendorSignupCategories = [
-  "Homme",
-  "Femme",
-];
+export const vendorSignupCategories = ["Homme", "Femme"];
 
 export const courierZones = [
   "Adjamé",
@@ -16,6 +13,9 @@ export const courierZones = [
   "Treichville",
   "Koumassi",
   "Port-Bouët",
+  "Anyama",
+  "Bingerville",
+  "Songon",
   "Intérieur du pays",
 ];
 
@@ -61,10 +61,7 @@ export const registerVendorApplication = createServerFn({ method: "POST" })
 
     if (existing) {
       if (!existing.user_id) {
-        await supabaseAdmin
-          .from("vendors")
-          .update({ user_id: data.user_id })
-          .eq("id", existing.id);
+        await supabaseAdmin.from("vendors").update({ user_id: data.user_id }).eq("id", existing.id);
       }
       await supabaseAdmin
         .from("user_roles")
@@ -93,7 +90,7 @@ export const registerVendorApplication = createServerFn({ method: "POST" })
 
 /**
  * Inscription d'un livreur : la fiche coursier est créée hors ligne, un agent
- * MarchéGo la valide et le met en disponible avant les premières missions.
+ * Mon Djassaman la valide et le met en disponible avant les premières missions.
  */
 export const registerCourierApplication = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => courierApplicationSchema.parse(data))

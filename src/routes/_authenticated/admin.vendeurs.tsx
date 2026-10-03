@@ -10,7 +10,7 @@ import { fetchVendors, vendorCategories, vendorStatuses } from "@/lib/admin-data
 export const Route = createFileRoute("/_authenticated/admin/vendeurs")({
   head: () => ({
     meta: [
-      { title: "Vendeurs — Administration MarchéGo" },
+      { title: "Vendeurs — Administration Mon Djassaman" },
       { name: "robots", content: "noindex" },
     ],
   }),

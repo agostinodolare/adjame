@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Star, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { courierAvailabilities, fetchCouriers, fetchOrders } from "@/lib/admin-d
 export const Route = createFileRoute("/_authenticated/admin/coursiers")({
   head: () => ({
     meta: [
-      { title: "Coursiers — Administration MarchéGo" },
+      { title: "Coursiers — Administration Mon Djassaman" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -20,6 +20,18 @@ export const Route = createFileRoute("/_authenticated/admin/coursiers")({
 const inputClass =
   "h-10 w-full rounded-md border border-input bg-secondary px-3 text-sm outline-none focus:border-primary";
 
+function getCourierRatingSummary(
+  reviews: { courier_id: string; rating: number }[],
+  courierId: string,
+) {
+  const ratings = reviews
+    .filter((review) => review.courier_id === courierId)
+    .map((review) => review.rating);
+  if (!ratings.length) return "Aucune évaluation";
+  const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+  return `${average.toFixed(1)} / 5 (${ratings.length} avis)`;
+}
+
 function CouriersPage() {
   const queryClient = useQueryClient();
   const [form, setForm] = useState({ name: "", phone: "", zone: "" });
@@ -27,6 +39,14 @@ function CouriersPage() {
 
   const couriers = useQuery({ queryKey: ["couriers"], queryFn: fetchCouriers });
   const orders = useQuery({ queryKey: ["orders"], queryFn: fetchOrders });
+  const reviews = useQuery({
+    queryKey: ["courier-reviews"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("courier_reviews").select("courier_id, rating");
+      if (error) throw error;
+      return data;
+    },
+  });
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["couriers"] });
 
   const create = useMutation({
@@ -73,7 +93,7 @@ function CouriersPage() {
 
   const activeCount = (courierId: string) =>
     (orders.data ?? []).filter(
-      (order) => order.courier_id === courierId && order.status === "en_livraison",
+      (order) => order.courier_id === courierId && !["livree", "annulee"].includes(order.status),
     ).length;
 
   return (
@@ -84,6 +104,11 @@ function CouriersPage() {
           Gérez l’équipe de livraison et sa disponibilité par zone.
         </p>
       </div>
+      {reviews.isError && (
+        <p role="alert" className="text-sm text-destructive">
+          Impossible de charger les évaluations des livreurs.
+        </p>
+      )}
 
       <form
         onSubmit={(event) => {
@@ -111,6 +136,10 @@ function CouriersPage() {
           value={form.zone}
           onChange={(event) => setForm({ ...form, zone: event.target.value })}
         />
+        <p className="text-xs text-muted-foreground sm:col-span-2 lg:col-span-4">
+          Indiquez les communes séparées par « / », par exemple Adjamé / Plateau. « Abidjan » couvre
+          les communes d’Abidjan, mais pas l’intérieur du pays.
+        </p>
         <Button type="submit" disabled={create.isPending}>
           <Plus /> Ajouter
         </Button>
@@ -139,6 +168,10 @@ function CouriersPage() {
             </p>
             <p className="text-sm text-muted-foreground">
               {activeCount(courier.id)} livraison(s) en cours
+            </p>
+            <p className="mt-2 flex items-center gap-1 text-sm text-muted-foreground">
+              <Star className="size-4 fill-amber-500 text-amber-500" />
+              {getCourierRatingSummary(reviews.data ?? [], courier.id)}
             </p>
             <select
               className={`${inputClass} mt-4`}

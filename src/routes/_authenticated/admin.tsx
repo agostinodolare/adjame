@@ -1,16 +1,23 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { Bike, LayoutDashboard, LogOut, ShieldAlert, ShoppingBag, Store } from "lucide-react";
+import {
+  Bike,
+  LayoutDashboard,
+  LogOut,
+  Shield,
+  ShieldAlert,
+  ShoppingBag,
+  Store,
+  TicketPercent,
+} from "lucide-react";
 
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
-    meta: [
-      { title: "Administration — MarchéGo" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Administration — Mon Djassaman" }, { name: "robots", content: "noindex" }],
   }),
   component: AdminLayout,
 });
@@ -21,6 +28,7 @@ const navItems = [
   { to: "/admin/commandes", label: "Commandes", icon: ShoppingBag, exact: false },
   { to: "/admin/vendeurs", label: "Vendeurs", icon: Store, exact: false },
   { to: "/admin/coursiers", label: "Coursiers", icon: Bike, exact: false },
+  { to: "/admin/coupons", label: "Bons d’achat", icon: TicketPercent, exact: false },
 ] as const;
 
 function AdminLayout() {
@@ -54,11 +62,8 @@ function AdminLayout() {
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-md bg-primary text-primary-foreground">
-              <ShoppingBag className="size-5" strokeWidth={2.5} />
-            </span>
-            <span className="font-display text-lg font-extrabold">
-              Marché<span className="text-primary">Go</span>
+            <BrandLogo variant="secondary" className="size-10 object-contain" />
+            <span>
               <span className="ml-2 rounded-sm bg-secondary px-2 py-0.5 text-xs font-bold text-muted-foreground">
                 Admin
               </span>
