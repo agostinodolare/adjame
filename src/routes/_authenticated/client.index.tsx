@@ -50,7 +50,7 @@ function ClientDashboard() {
         </Button>
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <section className="rounded-lg border border-border bg-background p-5">
           <div className="flex items-center gap-3">
             <span className="grid size-10 place-items-center rounded-md bg-secondary text-primary">

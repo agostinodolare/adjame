@@ -430,7 +430,7 @@ function ProduitsPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="product-name">Nom du produit</Label>
                   <Input
@@ -516,7 +516,7 @@ function ProduitsPage() {
                 />
               </div>
 
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="product-image">Photo du produit</Label>
                   <Input

@@ -89,7 +89,7 @@ function VendorsPage() {
           event.preventDefault();
           create.mutate();
         }}
-        className="grid gap-3 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-6"
+        className="grid grid-cols-1 gap-3 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-6"
       >
         <input
           className={inputClass}

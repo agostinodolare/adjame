@@ -137,10 +137,12 @@
     font-size: 16px !important;
   }
 
-  /* Cibles tactiles : 44 px minimum (WCAG 2.5.5) */
+  /* Cibles tactiles : 44 px minimum (WCAG 2.5.5)
+     Volontairement limite a button et [role="button"] : applique a `a`, ce
+     min-height ecrasait h-9 des liens et poussaient le texte de la barre promo
+     hors du bandeau. Les liens doivent porter leur propre zone tactile. */
   button,
-  [role="button"],
-  a {
+  [role="button"] {
     min-width: 44px;
     min-height: 44px;
   }

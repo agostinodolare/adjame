@@ -670,7 +670,7 @@ function Index() {
               href="https://wa.me/2250586552033"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex shrink-0 items-center gap-1.5 font-bold text-foreground hover:text-primary"
+              className="inline-flex shrink-0 items-center gap-1.5 py-1.5 font-bold text-foreground hover:text-primary"
               aria-label="Contacter le 05 86 55 20 33 sur WhatsApp"
             >
               <WhatsAppIcon className="size-4" />
@@ -1095,7 +1095,7 @@ function Index() {
               type="button"
               size="sm"
               onClick={browse}
-              className="absolute right-1 top-1 h-9 bg-accent px-3 text-accent-foreground hover:bg-accent/90"
+              className="absolute right-0 top-0 h-11 bg-accent px-3 text-accent-foreground hover:bg-accent/90"
             >
               Rechercher
             </Button>
@@ -1230,7 +1230,7 @@ function Index() {
             </div>
           )}
 
-          <div className="mt-7 grid gap-6 md:grid-cols-3">
+          <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-3">
             {visibleProducts.map((product, index) => (
               <article
                 key={product.id}
@@ -1387,7 +1387,7 @@ function Index() {
       >
         {selectedProduct && (
           <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto p-0">
-            <div className="grid md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="relative min-h-64 bg-secondary md:min-h-[28rem]">
                 <ProductImageGallery
                   images={[selectedProduct.image, ...selectedProduct.additionalImages]}
@@ -1532,7 +1532,7 @@ function Index() {
 
       <section id="livraison" className="bg-secondary py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="mb-2 text-sm font-bold uppercase text-accent">Simple comme bonjour</p>
               <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
@@ -1542,7 +1542,7 @@ function Index() {
                 Un service humain, pensé pour les réalités d’Abidjan.
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {[
                 [Store, "01", "Choisissez", "Parcourez les offres des vendeurs vérifiés."],
                 [BadgeCheck, "02", "Confirmez", "Un agent vérifie le prix et la disponibilité."],

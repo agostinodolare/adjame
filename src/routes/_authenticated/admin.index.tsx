@@ -52,7 +52,7 @@ function Dashboard() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard icon={Bike} label="Livraisons en cours" value={String(ongoing.length)} />
         <StatCard icon={Clock} label="À traiter" value={String(toProcess.length)} />
         <StatCard

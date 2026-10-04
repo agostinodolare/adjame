@@ -337,7 +337,7 @@ function VendorStorePage() {
               </p>
             )}
 
-            <div className="mt-8 grid items-start gap-4 sm:mt-10 sm:gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+            <div className="mt-8 grid grid-cols-1 items-start gap-4 sm:mt-10 sm:gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
               <section>
                 <div className="flex flex-wrap items-end justify-between gap-3">
                   <div>
@@ -371,7 +371,7 @@ function VendorStorePage() {
                   </p>
                 )}
 
-                <div className="mt-5 grid gap-4 sm:mt-6 sm:gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {products.map((product) => (
                     <article
                       key={product.id}

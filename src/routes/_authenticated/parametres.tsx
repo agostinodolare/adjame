@@ -433,7 +433,7 @@ function SettingsPage() {
             <CardTitle>Informations du compte</CardTitle>
             <CardDescription>Vos coordonnées et votre activité sur Mon Djassaman.</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
+          <CardContent className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <SettingLink
               to={profileHref}
               icon={UserRound}
@@ -454,7 +454,7 @@ function SettingsPage() {
             <CardTitle>Sécurité du compte</CardTitle>
             <CardDescription>Protégez l’accès à votre compte.</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
+          <CardContent className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <SettingLink
               to="/auth"
               icon={KeyRound}
@@ -487,7 +487,7 @@ function SettingsPage() {
               Personnalisez votre expérience et vos habitudes de commande.
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
+          <CardContent className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <SettingLink
               to={profileHref}
               icon={MapPin}

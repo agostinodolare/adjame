@@ -118,7 +118,7 @@ function UsersPage() {
       <div className="rounded-lg border border-border bg-background p-5 space-y-4">
         <h2 className="font-semibold">Attribuer un rôle</h2>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-semibold">Utilisateur</label>
             <select

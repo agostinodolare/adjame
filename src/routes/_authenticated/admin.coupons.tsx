@@ -107,7 +107,7 @@ function CouponsPage() {
 
       <form
         onSubmit={submit}
-        className="grid gap-4 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-5"
+        className="grid grid-cols-1 gap-4 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-5"
       >
         <div className="space-y-2">
           <Label htmlFor="coupon-code">Code</Label>

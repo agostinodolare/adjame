@@ -115,7 +115,7 @@ function CouriersPage() {
           event.preventDefault();
           create.mutate();
         }}
-        className="grid gap-3 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="grid grid-cols-1 gap-3 rounded-lg border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-4"
       >
         <input
           className={inputClass}
@@ -146,7 +146,7 @@ function CouriersPage() {
         {error && <p className="text-sm text-destructive sm:col-span-2 lg:col-span-4">{error}</p>}
       </form>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {(couriers.data ?? []).map((courier) => (
           <div key={courier.id} className="rounded-lg border border-border bg-background p-5">
             <div className="flex items-start justify-between gap-2">

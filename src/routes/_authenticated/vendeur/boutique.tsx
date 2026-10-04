@@ -385,7 +385,7 @@ function BoutiquePage() {
             maximum.
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-6 md:grid-cols-2">
+        <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-3">
             <Label htmlFor="shop-logo">Logo de la boutique</Label>
             <div className="grid size-32 place-items-center overflow-hidden rounded-xl border bg-muted">
