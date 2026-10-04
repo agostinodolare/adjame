@@ -223,44 +223,44 @@ export type Database = {
           },
         ];
       };
+      product_actions: {
+        Row: {
+          favorite: boolean;
+          liked: boolean;
+          product_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          favorite?: boolean;
+          liked?: boolean;
+          product_id: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          favorite?: boolean;
+          liked?: boolean;
+          product_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "product_actions_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       product_reviews: {
         Row: {
           order_item_id: string;
           product_id: string;
           rating: number;
           created_at: string;
-        };
-        product_actions: {
-          Row: {
-            favorite: boolean;
-            liked: boolean;
-            product_id: string;
-            updated_at: string;
-            user_id: string;
-          };
-          Insert: {
-            favorite?: boolean;
-            liked?: boolean;
-            product_id: string;
-            updated_at?: string;
-            user_id: string;
-          };
-          Update: {
-            favorite?: boolean;
-            liked?: boolean;
-            product_id?: string;
-            updated_at?: string;
-            user_id?: string;
-          };
-          Relationships: [
-            {
-              foreignKeyName: "product_actions_product_id_fkey";
-              columns: ["product_id"];
-              isOneToOne: false;
-              referencedRelation: "products";
-              referencedColumns: ["id"];
-            },
-          ];
         };
         Insert: {
           order_item_id: string;

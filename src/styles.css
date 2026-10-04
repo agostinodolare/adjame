@@ -86,7 +86,7 @@
 @utility scroll-mt-20 { scroll-margin-top: 5rem; }
 @utility scroll-mt-24 { scroll-margin-top: 6rem; }
 
-/* Classe pour empÃªcher le sÃ©lection de texte sur les boutons tactiles */
+/* Classe pour empêcher le sélection de texte sur les boutons tactiles */
 @utility no-select { user-select: none; -webkit-user-select: none; }
 
 @keyframes promotion-marquee-scroll {
@@ -116,7 +116,7 @@
 }
 
 /* ===== RESPONSIVITE MOBILE ANDROID =====
-   Optimisations spÃ©cifiques pour les appareils mobiles (max-width: 768px) */
+   Optimisations spécifiques pour les appareils mobiles (max-width: 768px) */
 
 @media (max-width: 768px) {
   /* Reset de la taille des polices pour mobile */
@@ -125,13 +125,13 @@
     -webkit-text-size-adjust: 100%;
   }
   
-  /* EmpÃªche le zoom automatique sur les inputs sur iOS/Android */
+  /* Empêche le zoom automatique sur les inputs sur iOS/Android */
   input, textarea, select, button {
     font-size: 16px !important;
     min-height: 44px;
   }
   
-  /* AmÃ©lioration du touch target pour les Ã©lÃ©ments cliquables */
+  /* Amélioration du touch target pour les éléments cliquables */
   button, [role="button"], a, .touch-target {
     min-width: 44px;
     min-height: 44px;
@@ -143,7 +143,7 @@
     height: auto;
   }
   
-  /* Gestion du dÃ©filement horizontal */
+  /* Gestion du défilement horizontal */
   body {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -156,13 +156,13 @@
   }
 }
 
-/* Optimisations pour trÃ¨s petits Ã©crans (mobile) */
+/* Optimisations pour très petits écrans (mobile) */
 @media (max-width: 480px) {
   html {
     font-size: 14px;
   }
   
-  /* RÃ©duction des espacements sur trÃ¨s petits Ã©crans */
+  /* Réduction des espacements sur très petits écrans */
   .py-16 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -173,7 +173,7 @@
     padding-bottom: 2.5rem;
   }
   
-  /* Taille des boutons adaptÃ©e */
+  /* Taille des boutons adaptée */
   .btn-mobile {
     padding: 0.75rem 1.5rem;
     font-size: 14px;
@@ -190,18 +190,18 @@
 
 /* Fix pour le clavier virtuel sur mobile */
 @media (max-width: 768px) {
-  /* DÃ©place la vue quand le clavier apparaÃ®t */
+  /* Déplace la vue quand le clavier apparaît */
   input:focus, textarea:focus, select:focus {
     scroll-margin-top: 100px;
   }
   
-  /* EmpÃªche le double-tap zoom sur les Ã©lÃ©ments touch */
+  /* Empêche le double-tap zoom sur les éléments touch */
   .no-touch-zoom {
     touch-action: manipulation;
   }
 }
 
-/* AmÃ©lioration des dialogs sur mobile */
+/* Amélioration des dialogs sur mobile */
 @media (max-width: 640px) {
   .dialog-mobile {
     width: calc(100vw - 2rem) !important;
@@ -222,7 +222,7 @@
   }
 }
 
-/* Espacement rÃ©duit sur mobile */
+/* Espacement réduit sur mobile */
 @media (max-width: 768px) {
   .space-y-4 > * + * {
     margin-top: 1rem;
@@ -233,7 +233,7 @@
   }
 }
 
-/* Adaptation des icÃ´nes sur mobile */
+/* Adaptation des icônes sur mobile */
 @media (max-width: 640px) {
   .icon-mobile {
     width: 1.25rem;

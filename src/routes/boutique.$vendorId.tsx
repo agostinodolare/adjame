@@ -121,7 +121,7 @@ function VendorStorePage() {
   const selectedProducts = products.filter((product) => cart[product.id]);
   const itemCount = Object.values(cart).reduce((total, quantity) => total + quantity, 0);
   const subtotal = selectedProducts.reduce(
-    (total, product) => total + product.price * cart[product.id],
+    (total, product) => total + product.price * (cart[product.id] ?? 0),
     0,
   );
   const deliveryFee = itemCount ? deliveryFeeFor(commune) : 0;
@@ -436,7 +436,7 @@ function VendorStorePage() {
                                 variant="ghost"
                                 size="icon"
                                 aria-label={`Ajouter un ${product.name}`}
-                                disabled={cart[product.id] >= product.stock}
+                                disabled={(cart[product.id] ?? 0) >= product.stock}
                                 onClick={() => updateCart(product, 1)}
                               >
                                 <Plus />
@@ -481,7 +481,7 @@ function VendorStorePage() {
                             {product.name} × {cart[product.id]}
                           </span>
                           <strong className="shrink-0">
-                            {formatPrice(product.price * cart[product.id])}
+                            {formatPrice(product.price * (cart[product.id] ?? 0))}
                           </strong>
                         </div>
                       ))}
