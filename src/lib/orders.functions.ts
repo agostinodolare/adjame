@@ -54,7 +54,7 @@ const assignCourierSchema = z.object({
 });
 
 export const requestDelivery = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => requestSchema.parse(data))
+  .validator((data: unknown) => requestSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: authData, error: authError } = await supabaseAdmin.auth.getUser(data.accessToken);
@@ -99,7 +99,7 @@ export const requestDelivery = createServerFn({ method: "POST" })
   });
 
 export const previewCoupon = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => couponPreviewSchema.parse(input))
+  .validator((input: unknown) => couponPreviewSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: authData, error: authError } = await supabaseAdmin.auth.getUser(data.accessToken);
@@ -153,7 +153,7 @@ export const previewCoupon = createServerFn({ method: "POST" })
   });
 
 export const listAvailableCoupons = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => availableCouponsSchema.parse(input))
+  .validator((input: unknown) => availableCouponsSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: authData, error: authError } = await supabaseAdmin.auth.getUser(data.accessToken);
@@ -197,7 +197,7 @@ export const listAvailableCoupons = createServerFn({ method: "POST" })
   });
 
 export const assignOrderCourier = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => assignCourierSchema.parse(input))
+  .validator((input: unknown) => assignCourierSchema.parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: authData, error: authError } = await supabaseAdmin.auth.getUser(data.accessToken);

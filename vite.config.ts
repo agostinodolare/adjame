@@ -24,6 +24,23 @@ export default defineConfig(({ command, mode }) => {
       dedupe: ["react", "react-dom", "@tanstack/react-router"],
       tsconfigPaths: true,
     },
+    build: {
+      rolldownOptions: {
+        output: {
+          // Découpe les bibliothèques lourdes en chunks séparés : elles sont
+          // mises en cache indépendamment du code métier et ne gonflent plus
+          // le chunk de chaque page.
+          codeSplitting: {
+            groups: [
+              { name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
+              { name: "supabase", test: /node_modules[\\/]@supabase[\\/]/ },
+              { name: "tanstack", test: /node_modules[\\/]@tanstack[\\/]/ },
+              { name: "radix", test: /node_modules[\\/]@radix-ui[\\/]/ },
+            ],
+          },
+        },
+      },
+    },
     server: {
       host: "::",
       port: 8080,

@@ -35,7 +35,7 @@ async function requireAdmin(accessToken: string) {
 }
 
 export const listManagedUsers = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => accessTokenSchema.parse(input))
+  .validator((input: unknown) => accessTokenSchema.parse(input))
   .handler(async ({ data }) => {
     const supabaseAdmin = await requireAdmin(data.accessToken);
     const perPage = 100;
@@ -67,7 +67,7 @@ export const listManagedUsers = createServerFn({ method: "POST" })
   });
 
 export const assignManagedRole = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => assignRoleSchema.parse(input))
+  .validator((input: unknown) => assignRoleSchema.parse(input))
   .handler(async ({ data }) => {
     const supabaseAdmin = await requireAdmin(data.accessToken);
     const { data: target, error: targetError } = await supabaseAdmin.auth.admin.getUserById(
@@ -82,7 +82,7 @@ export const assignManagedRole = createServerFn({ method: "POST" })
   });
 
 export const removeManagedRole = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => removeRoleSchema.parse(input))
+  .validator((input: unknown) => removeRoleSchema.parse(input))
   .handler(async ({ data }) => {
     const supabaseAdmin = await requireAdmin(data.accessToken);
     const { error } = await supabaseAdmin

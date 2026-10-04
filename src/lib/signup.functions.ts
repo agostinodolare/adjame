@@ -49,7 +49,7 @@ async function assertUser(userId: string) {
  * publiquement avant validation.
  */
 export const registerVendorApplication = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => vendorApplicationSchema.parse(data))
+  .validator((data: unknown) => vendorApplicationSchema.parse(data))
   .handler(async ({ data }) => {
     const supabaseAdmin = await assertUser(data.user_id);
 
@@ -93,7 +93,7 @@ export const registerVendorApplication = createServerFn({ method: "POST" })
  * Mon Djassaman la valide et le met en disponible avant les premières missions.
  */
 export const registerCourierApplication = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => courierApplicationSchema.parse(data))
+  .validator((data: unknown) => courierApplicationSchema.parse(data))
   .handler(async ({ data }) => {
     const supabaseAdmin = await assertUser(data.user_id);
 
