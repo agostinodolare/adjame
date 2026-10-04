@@ -1103,13 +1103,13 @@ function Index() {
         </div>
       </div>
 
-      <section id="top" className="relative min-h-[620px] md:min-h-[690px]">
+      <section id="top" className="relative min-h-[620px] overflow-hidden md:min-h-[690px]">
         <img
           src={heroImage}
           alt="Des clients découvrent les boutiques du marché d’Adjamé"
           width={1600}
           height={1000}
-          className="absolute inset-0 size-full object-cover object-[66%_center]"
+          className="absolute inset-0 size-full object-cover object-[66%_center] max-md:scale-110"
         />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-4 py-16 sm:px-6 md:min-h-[690px] lg:px-8">

@@ -147,10 +147,15 @@
     min-height: 44px;
   }
 
-  /* Une image ne doit jamais deborder de son conteneur */
+  /* Une image ne doit jamais deborder de son conteneur.
+     Ne surtout pas imposer height: auto ici : cette regle est hors @layer,
+     donc elle l'emporte sur les utilitaires Tailwind (size-full, size-20,
+     h-16...) et ramene chaque image a son ratio intrinseque. C'etait
+     exactement ce qui vidait le hero de 620 px de hauteur sous 768 px.
+     `auto` est deja la valeur initiale de height sur un <img>, donc la
+     regle n'apportait rien de ce cote. */
   img {
     max-width: 100%;
-    height: auto;
   }
 
   /* Evite le rebattement horizontal sur iOS */
