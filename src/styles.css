@@ -115,136 +115,53 @@
   .promotion-marquee-track { animation: none; }
 }
 
-/* ===== RESPONSIVITE MOBILE ANDROID =====
-   Optimisations spécifiques pour les appareils mobiles (max-width: 768px) */
+/* ===== RESPONSIVITE MOBILE =====
+
+   Ce bloc ne contient que ce qui ne peut pas s'exprimer avec des utilitaires
+   Tailwind. Il ne doit pas redefinir une echelle de conception (html font-size,
+   .mx-auto, .space-y-*) : ces regles etaient hors @layer, donc elles
+   l'emportaient sur les utilitaires et ecrasaient le design sous 768 px.
+   N'ajoutez pas de classes maison ici : elles n'etaient utilisees nulle part. */
 
 @media (max-width: 768px) {
-  /* Reset de la taille des polices pour mobile */
+  /* Empeche l'inflation automatique du texte sur iOS */
   html {
-    font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
-  
-  /* Empêche le zoom automatique sur les inputs sur iOS/Android */
-  input, textarea, select, button {
+
+  /* Empeche le zoom automatique a la mise au point des champs sur iOS */
+  input,
+  textarea,
+  select,
+  button {
     font-size: 16px !important;
-    min-height: 44px;
   }
-  
-  /* Amélioration du touch target pour les éléments cliquables */
-  button, [role="button"], a, .touch-target {
+
+  /* Cibles tactiles : 44 px minimum (WCAG 2.5.5) */
+  button,
+  [role="button"],
+  a {
     min-width: 44px;
     min-height: 44px;
   }
-  
-  /* Optimisation des images pour mobile */
+
+  /* Une image ne doit jamais deborder de son conteneur */
   img {
     max-width: 100%;
     height: auto;
   }
-  
-  /* Gestion du défilement horizontal */
+
+  /* Evite le rebattement horizontal sur iOS */
   body {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  
-  /* Adaptation des conteneurs */
-  .container, .mx-auto {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
 
-/* Optimisations pour très petits écrans (mobile) */
-@media (max-width: 480px) {
-  html {
-    font-size: 14px;
-  }
-  
-  /* Réduction des espacements sur très petits écrans */
-  .py-16 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-  
-  .py-20 {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-  
-  /* Taille des boutons adaptée */
-  .btn-mobile {
-    padding: 0.75rem 1.5rem;
-    font-size: 14px;
-  }
-}
-
-/* Optimisations pour tablettes */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .container, .mx-auto {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-/* Fix pour le clavier virtuel sur mobile */
-@media (max-width: 768px) {
-  /* Déplace la vue quand le clavier apparaît */
-  input:focus, textarea:focus, select:focus {
+  /* Le clavier virtuel ne doit pas masquer le champ capte */
+  input:focus,
+  textarea:focus,
+  select:focus {
     scroll-margin-top: 100px;
-  }
-  
-  /* Empêche le double-tap zoom sur les éléments touch */
-  .no-touch-zoom {
-    touch-action: manipulation;
-  }
-}
-
-/* Amélioration des dialogs sur mobile */
-@media (max-width: 640px) {
-  .dialog-mobile {
-    width: calc(100vw - 2rem) !important;
-    max-width: 100% !important;
-    margin: 1rem;
-  }
-}
-
-/* Optimisation des grilles sur mobile */
-@media (max-width: 640px) {
-  .grid-mobile-1 {
-    grid-template-columns: 1fr !important;
-  }
-  
-  .grid-mobile-2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
-  }
-}
-
-/* Espacement réduit sur mobile */
-@media (max-width: 768px) {
-  .space-y-4 > * + * {
-    margin-top: 1rem;
-  }
-  
-  .space-y-6 > * + * {
-    margin-top: 1.5rem;
-  }
-}
-
-/* Adaptation des icônes sur mobile */
-@media (max-width: 640px) {
-  .icon-mobile {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-/* Gestion des ombres et effets visuels sur mobile */
-@media (max-width: 768px) {
-  .shadow-reduce {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
   }
 }
 
