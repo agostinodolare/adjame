@@ -817,7 +817,7 @@ function Index() {
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <Button
               variant="outline"
-              className="relative h-10 w-10 sm:h-11 sm:px-3"
+              className="relative h-10 w-10 sm:h-11 sm:w-auto sm:px-3"
               onClick={() => setCartOpen(true)}
               aria-label={cartCount > 0 ? `Panier avec ${cartCount} articles` : "Mon panier"}
             >
@@ -1079,7 +1079,7 @@ function Index() {
       </Dialog>
 
       <div
-        className="sticky top-[4.5rem] z-30 border-b border-border bg-background/95 px-4 py-2 shadow-sm backdrop-blur md:hidden"
+        className="sticky top-16 z-30 border-b border-border bg-background/95 px-3 py-2 shadow-sm backdrop-blur sm:px-6 md:hidden"
       >
         <div className="mx-auto max-w-7xl">
           <div className="relative">
